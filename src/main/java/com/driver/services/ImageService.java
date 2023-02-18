@@ -5,7 +5,6 @@ import com.driver.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,23 +15,19 @@ public class ImageService {
     @Autowired
     ImageRepository imageRepository2;
 
-    public Image addImage(Integer blogId, String description, String dimensions){
+    public Image addImage(Integer blogId, String description, String dimensions) {
+        //add an image to the blog
 
-       Blog blog = blogRepository2.findById(blogId).get();
-       Image image=new Image(description,dimensions,blog);
-
-       List<Image>images=blog.getImageList();
-       images.add(image);
-
-
-       blogRepository2.save(blog);
-       //imageRepository2.save(image);
-
-       return image;
+        Blog blog = blogRepository2.findById(blogId).get();
+        Image image = new Image(blog,description,dimensions);
+        blog.getImageList().add(image);
+        blogRepository2.save(blog);
+        return image;
+        //Here I am not explicitly adding image in image-repository because due to cascading effect
     }
 
     public void deleteImage(Integer id){
-          imageRepository2.deleteById(id);
+        imageRepository2.deleteById(id);
     }
 
     public int countImagesInScreen(Integer id, String screenDimensions) {
