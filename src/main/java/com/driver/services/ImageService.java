@@ -23,13 +23,13 @@ public class ImageService {
 
        Blog blog = blogRepository2.findById(blogId).get();
 
-       //image.setBlog(blog);
+       image.setBlog(blog);
        List<Image>images=blog.getImageList();
        images.add(image);
        blog.setImageList(images);
 
-       blogRepository2.save(blog);
-       imageRepository2.save(image);
+       //blogRepository2.save(blog);
+       //imageRepository2.save(image);
 
        return image;
     }
